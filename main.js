@@ -38,7 +38,7 @@ const hours = 10;   // const for calculate final price
 
 */
 
-const jobs = [ //cost per hour for each job category
+const jobs = [ 
     {
         jobId: "Backend Dev", 
         pricePerHour: 20.50
@@ -68,18 +68,24 @@ const jobs = [ //cost per hour for each job category
     ]
 */
 
-const promoCodes = [ 
+const promoCodes = [
     {
-        code: [
-            "YHDNU32",
-            "JANJC63",
-            "PWKCN25",
-            "SJDPO96",
-            "POCIE24"
-        ],
-        discount: 0.75
-    }
-];
+        promoId: "YHDNU32"
+    }, 
+    {
+        promoId: "JANJC63"
+    }, 
+    {
+        promoId: "PWKCN25"
+    }, 
+    {
+        promoId: "SJDPO96"
+    }, 
+    {
+        promoId: "POCIE24"
+    }       
+    
+    ];
 
 /*
 
@@ -87,9 +93,35 @@ const promoCodes = [
 
 */
 
-/*
+/* event listener che controlla che tutto il form sia compilato */
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("budgetRequest");
+    const jobSelection = document.getElementById("jobSelection");
+    const prezzoFinaleDiv = document.querySelector(".d-flex.mt-4.mb-5.justify-content-between div");
 
- function form control??????
+/* event listener che consente di non refreshare il form al click sul submit */
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+        const inputName = document.getElementById("inputName").value.trim();
+        const inputSurname = document.getElementById("inputSurname").value.trim();
+        const inputEmail = document.getElementById("inputEmail").value.trim();
+        const jobSelectionValue = jobSelection.value;
+
+
+ /*
+
+ calcolo preventivo:
+ per calcolare il preventivo devo:
+  aver inserito tutti i campi
+  validato email
+  preventivo = fee*hours
+  controllo promoCode scorrendo l'arrey con i codes validi confrontandoli con quello inserito in input
+  se valido return true ed eseguo preventivo*0.75 e element.innerhtml che conterrà un div con "prezzo finale "
+  se non valido return false e element.innerhtml che conterrà un div con "prezzo finale "
 
  */
+
+
+
 

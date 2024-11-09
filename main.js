@@ -86,5 +86,21 @@ form.addEventListener("submit", function (event) {
             alert("Per favore, compila tutti i campi obbligatori.");
             return;
         }
-    //da finire event listener con ricerca lavoro selezionato per il calcolo del preventivo 
+
+        let selectedJob = null; 
+        // trasformo il selectedJob in text cosi da poter controllare dentro il mio array
+        const selectedJobText = jobSelection.options[jobSelection.selectedIndex].text;
+
+        for (let i = 0; i < jobs.length; i++) {
+            if (jobs[i].jobId === selectedJobText) {
+                selectedJob = jobs[i];
+                break; 
+            }
+        }
+
+        //calcolo del prezzo
+
+
+        //visualizzo il prezzo
+
 })

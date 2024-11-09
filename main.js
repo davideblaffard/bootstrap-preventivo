@@ -23,21 +23,7 @@ const policyCheck = document.getElementById("checkBox");
 const hours = 10;   // const for calculate final price 
 
 
-/*job array-objects
-    [
-        {type}
-        {pricePerHour}
-
-        {type}
-        {pricePerHour}
-
-        {type}
-        {pricePerHour}
-    
-    ]
-
-*/
-
+/* job category objects & jobs objects */
 const jobs = [ 
     {
         jobId: "Backend Dev", 
@@ -53,20 +39,8 @@ const jobs = [
     },
 ];
 
-/*promoCode Discount array-objects
-    [
-        {
-            [
-            1
-            2
-            3
-            4
-            5
-            ]
-            discount: 0.75
-    }
-    ]
-*/
+
+
 
 const promoCodes = [
     {
@@ -93,13 +67,13 @@ const promoCodes = [
 
 */
 
-/* event listener che controlla che tutto il form sia compilato */
+// event listener che attende che tutto il form sia compilato 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("budgetRequest");
     const jobSelection = document.getElementById("jobSelection");
     const prezzoFinaleDiv = document.querySelector(".d-flex.mt-4.mb-5.justify-content-between div");
 
-/* event listener che consente di non refreshare il form al click sul submit */
+// event listener che consente di non refreshare il form al click sul submit 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -108,20 +82,9 @@ form.addEventListener("submit", function (event) {
         const inputEmail = document.getElementById("inputEmail").value.trim();
         const jobSelectionValue = jobSelection.value;
 
-
- /*
-
- calcolo preventivo:
- per calcolare il preventivo devo:
-  aver inserito tutti i campi
-  validato email
-  preventivo = fee*hours
-  controllo promoCode scorrendo l'arrey con i codes validi confrontandoli con quello inserito in input
-  se valido return true ed eseguo preventivo*0.75 e element.innerhtml che conterrà un div con "prezzo finale "
-  se non valido return false e element.innerhtml che conterrà un div con "prezzo finale "
-
- */
-
-
-
-
+        if (inputName === "" || inputSurname === "" || inputEmail === "" || jobSelectionValue === "Seleziona il tipo di lavoro") {
+            alert("Per favore, compila tutti i campi obbligatori.");
+            return;
+        }
+    //da finire event listener con ricerca lavoro selezionato per il calcolo del preventivo 
+})

@@ -78,16 +78,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 //debugging
                 console.log("Lavoro selezionato:", selectedJobText);
                 
+
+                /*
                 let selectedJob = null;
 
                 for (let i = 0; i < jobs.Length; i++) {
-                    console.log(jobs[i].jobId.trim());  //debugging (fino a qui tutto bene)
+                    console.log("confronto", jobs[i].jobId.trim());  //debugging (fino a qui tutto bene)
                     if (jobs[i].jobId.trim() === selectedJobText) {
                         selectedJob = jobs[i];
+                        console.log("risultato", jobs[i].jobId.trim()); 
                         break; 
                     }         
                 }
+
+                */
                 
+                const selectedJob = findJob(selectedJobText);
                 
                 //calcolo del prezzo
                 if (selectedJob) {
@@ -102,6 +108,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 //visualizzo il prezzo nel dom
             });        
 });
+
+
+//funzione findJob by Text
+function findJob(selectedJobText) {
+    for (let i = 0; i < jobs.length; i++) {
+        if (jobs[i].jobId.trim() === selectedJobText) {
+            return jobs[i]; 
+        }
+    }
+    return null; // se non c'è nessun corrispondenza
+}
 
 
 

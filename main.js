@@ -70,16 +70,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Prezzo finale:", price);
                     price = applyDiscount(inputPromoCode, price);
                     console.log("il prezzo scontato è: ", price);
-                    //
+                    
+                    //mostro il prezzo finale nel dom
                     finalPriceDisplay.textContent = `Prezzo Finale: €${price.toFixed(2)}`;
+
+                    //il div "compare" solo nel momento in cui viene cliccato il bottone
                     finalPriceDisplay.classList.remove("d-none");
                     finalPriceDisplay.classList.add("d-flex");
                 }else {
                     alert("LAVORO SELEZIONATO NON VALIDO!");
                 }
-                //funzione che verifichi la presenza di un promoCode valido
-
-                //visualizzo il prezzo nel dom
+                
             });        
 });
 

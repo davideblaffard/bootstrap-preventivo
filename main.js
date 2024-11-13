@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const jobSelection = document.getElementById("jobSelection");
                 const jobSelectionValue = jobSelection.value;
                 const inputPromoCode = document.getElementById("promoCode").value.trim();
+                const finalPriceDisplay = document.getElementById("finalPriceDisplay");
 
                 //controllo la completezza del form
                 if (inputName === "" || inputSurname === "" || inputEmail === "" || jobSelectionValue === "Seleziona il tipo di lavoro") {
@@ -69,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Prezzo finale:", price);
                     price = applyDiscount(inputPromoCode, price);
                     console.log("il prezzo scontato è: ", price);
+                    //
+                    finalPriceDisplay.textContent = `Prezzo Finale: €${price.toFixed(2)}`;
+                    finalPriceDisplay.classList.remove("d-none");
+                    finalPriceDisplay.classList.add("d-flex");
                 }else {
                     alert("LAVORO SELEZIONATO NON VALIDO!");
                 }
@@ -88,11 +93,11 @@ function findJob(selectedJobText) {
             return jobs[i]; 
         }
     }
-    return null; // se non c'è nessun corrispondenza
+    return null; // se non c'è nessuna corrispondenza
 }
 
 
-//funzione applyDiscount by searching promoCodes ---> 
+//funzione applyDiscount by searching promoCodes 
 function applyDiscount(inputPromoCode, price){
     
     const trimCode = inputPromoCode.trim().toUpperCase();

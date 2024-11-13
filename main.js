@@ -1,19 +1,13 @@
 console.log('sono dentro');
 
-// html variables
+/**** HTML ****/
 
-/*
-const form = document.getElementById("budgetRequest");
-const name = document.getElementById("inputName");
-const surname = document.getElementById("inputSurname");
-const eMail = document.getElementById("inputEmail");
-const job = document.getElementById("jobSelection");
-*/
+// textArea, policycheck non le sto considerando obbligatorie, per questo le ho lasciate fuori dall'eventListener
 const textArea = document.getElementById("testArea");
-const userCode = document.getElementById("promoCode");
 const policyCheck = document.getElementById("checkBox");
-const hours = 10;   // const for calculate final price 
+const hours = 10;   // const for final price 
 
+/**** /HTML ****/
 
 // job category objects & jobs array 
 const jobs = [ 
@@ -31,32 +25,13 @@ const jobs = [
     },
 ];
 
-//promoCodes 
-const promoCodes = [
-    {
-        promoId: "YHDNU32"
-    }, 
-    {
-        promoId: "JANJC63"
-    }, 
-    {
-        promoId: "PWKCN25"
-    }, 
-    {
-        promoId: "SJDPO96"
-    }, 
-    {
-        promoId: "POCIE24"
-    }       
-    
-    ];
+//promoCodes array
+const promoCodes = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 
 
 // event listener che attende che tutto il form sia compilato 
 document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("budgetRequest");
-    
-        const prezzoFinaleDiv = document.querySelector(".d-flex.mt-4.mb-5.justify-content-between div");
 
 // event listener che consente di non refreshare il form al click sul submit 
         form.addEventListener("submit", function (event) {
@@ -67,47 +42,43 @@ document.addEventListener("DOMContentLoaded", function () {
                 const inputEmail = document.getElementById("inputEmail").value.trim();
                 const jobSelection = document.getElementById("jobSelection");
                 const jobSelectionValue = jobSelection.value;
+                const inputPromoCode = document.getElementById("promoCode").value.trim();
 
+                //controllo la completezza del form
                 if (inputName === "" || inputSurname === "" || inputEmail === "" || jobSelectionValue === "Seleziona il tipo di lavoro") {
-                    alert("Per favore, compila tutti i campi obbligatori.");
+                    alert("COMPILARE TUTTI I CAMPI!");
                     return;
                 }
-
+                
+                //invoco validEmail
+                if(!validEmail(inputEmail)){
+                    alert("EMAIL NON VALIDA!");
+                    return;
+                }
                 // trasformo il selectedJob in text cosi da poter controllare dentro il mio array
                 const selectedJobText = jobSelection.options[jobSelection.selectedIndex].text;
                 //debugging
                 console.log("Lavoro selezionato:", selectedJobText);
                 
-
-                /*
-                let selectedJob = null;
-
-                for (let i = 0; i < jobs.Length; i++) {
-                    console.log("confronto", jobs[i].jobId.trim());  //debugging (fino a qui tutto bene)
-                    if (jobs[i].jobId.trim() === selectedJobText) {
-                        selectedJob = jobs[i];
-                        console.log("risultato", jobs[i].jobId.trim()); 
-                        break; 
-                    }         
-                }
-
-                */
-                
+                //invoco findJob
                 const selectedJob = findJob(selectedJobText);
                 
                 //calcolo del prezzo
                 if (selectedJob) {
-                    const price = selectedJob.pricePerHour * hours; 
+                    let price = selectedJob.pricePerHour * hours; 
                     console.log("Prezzo finale:", price);
+                    price = applyDiscount(inputPromoCode, price);
+                    console.log("il prezzo scontato è: ", price);
                 }else {
-                    alert("Lavoro selezionato non valido.");
+                    alert("LAVORO SELEZIONATO NON VALIDO!");
                 }
-
-                console.log("sono arrivato qui");  
                 //funzione che verifichi la presenza di un promoCode valido
+
                 //visualizzo il prezzo nel dom
             });        
 });
+
+/**** FUNCTIONS ****/
 
 
 //funzione findJob by Text
@@ -121,8 +92,22 @@ function findJob(selectedJobText) {
 }
 
 
+//funzione applyDiscount by searching promoCodes ---> 
+function applyDiscount(inputPromoCode, price){
+    
+    const trimCode = inputPromoCode.trim().toUpperCase();
+
+    if(promoCodes.includes(trimCode)){
+        console.log("Codice valido, applico sconto del 25%");
+        return price * 0.75;
+        
+    }
+    return price;
+}
 
 
+//function validEmail by @
+function validEmail(email) {
+    return email.includes("@");
+}
 
-//funzione verifica promoCode
-//funzione valid email
